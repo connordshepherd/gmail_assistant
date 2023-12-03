@@ -174,8 +174,7 @@ def handle_new_user_message(messages, new_user_message):
     new_response = openai.chat.completions.create(
         model="gpt-4-1106-preview",
         messages=messages,
-        tools=tools,
-        Stream=True
+        tools=tools
     )
 
     # Extract the assistant message object
@@ -201,8 +200,7 @@ def handle_new_user_message(messages, new_user_message):
           human_readable_response = openai.chat.completions.create(
               model="gpt-4-1106-preview",
               messages=messages,
-              tools=tools,
-              Stream=True
+              tools=tools
           )
           assistant_message = human_readable_response.choices[0].message
           messages.append({"role": "assistant", "content": assistant_message.content})
