@@ -47,10 +47,10 @@ def authenticate_gmail(access_token, refresh_token, client_id, client_secret):
 st.title("Build Gmail Service")
 st.info(info_message)
 
-client_id = '122758298025-1vcijqke0mov1seirsef5rll4v7no0s3.apps.googleusercontent.com'
-client_secret = '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'
-access_token = 'ya29.a0AfB_byDrNOKPf_Ny30S_9QUTtCRwhiO78pFbkUqsqzF_pHTnn8nvF-eA3davyN8TX1Wdw1CD7Fd2xP9XqJ3aYO1NTrFT4nMNsN22BOd666C9GX_g68rZSwUH7B0xdYY2Dw66CQD7ocELT3ywxVLLhY8fhg_U69lN2-8NaCgYKAR0SARESFQHGX2MiW4SdUBT9O-0IUp7S-tujgg0171'
-refresh_token = '1//04JP5BC-5g3NzCgYIARAAGAQSNgF-L9IrhNfEx4GQM1REeqa2DU7PKfWO7sRiAmC8buSrpvNMm_lG9SNKDUhIVvpg2JIAPb5Nnw'
+client_id = 'xyz'
+client_secret = 'abc'
+access_token = 'abc'
+refresh_token = 'something'
 
 input_client_id = st.text_input(label="Client ID", value=client_id)
 input_client_secret = st.text_input(label="Client Secret", value=client_secret)
