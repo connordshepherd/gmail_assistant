@@ -220,8 +220,8 @@ if "messages" not in st.session_state:
     st.session_state.messages = []
 
 for message in st.session_state.messages:
-    with st.chat_message(message["role"]):
-        st.markdown(message["content"])
+    with st.chat_message(message.role):
+        st.markdown(message.content)
 
 if prompt := st.chat_input("What is up?"):
     # Call your function to handle the new user message
@@ -229,5 +229,5 @@ if prompt := st.chat_input("What is up?"):
 
     # Display the new messages in the Streamlit interface
     for message in st.session_state.messages[-2:]:  # Display the last two messages (user and assistant)
-        with st.chat_message(message["role"]):
-            st.markdown(message["content"])
+        with st.chat_message(message.role):
+            st.markdown(message.content)
