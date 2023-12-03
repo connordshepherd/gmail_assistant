@@ -5,7 +5,6 @@ import requests
 import json
 import datetime
 import pandas as pd
-from bs4 import BeautifulSoup
 import base64
 from googleapiclient.errors import HttpError
 from googleapiclient.discovery import build
@@ -204,3 +203,28 @@ def handle_new_user_message(messages, new_user_message):
           messages.append({"role": "assistant", "content": assistant_message.content})
 
     return messages
+
+# ------------- UI --------------
+
+st.title("ChatGPT-like clone")
+
+client = OpenAI(api_key=st.secrets["OPENAI_API_KEY"])
+
+if "openai_model" not in st.session_state:
+    st.session_state["openai_model"] = "gpt-4-1106-preview"
+
+if "messages" not in st.session_state:
+    st.session_state.messages = []
+
+for message in st.session_state.messages:
+    with st.chat_message(message["role"]):
+        st.markdown(message["content"])
+
+if prompt := st.chat_input("What is up?"):
+    # Call your function to handle the new user message
+    st.session_state.messages = handle_new_user_message(st.session_state.messages, prompt)
+
+    # Display the new messages in the Streamlit interface
+    for message in st.session_state.messages[-2:]:  # Display the last two messages (user and assistant)
+        with st.chat_message(message["role"]):
+            st.markdown(message["content"])
