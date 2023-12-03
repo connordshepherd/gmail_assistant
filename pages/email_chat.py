@@ -14,6 +14,8 @@ from base64 import urlsafe_b64decode
 
 GPT_MODEL = "gpt-4-1106-preview"
 
+service = st.session_state.service
+
 # ------------ Functions -------------
 
 # This is a real function to search Gmail for a given query
