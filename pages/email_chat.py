@@ -214,20 +214,29 @@ st.title("ChatGPT-like clone")
 client = OpenAI(api_key=st.secrets["OPENAI_API_KEY"])
 
 if "openai_model" not in st.session_state:
-    st.session_state["openai_model"] = "gpt-4-1106-preview"
+    st.session_state["openai_model"] = "gpt-3.5-turbo"
 
 if "messages" not in st.session_state:
     st.session_state.messages = []
 
+# Function to transform message objects to a Streamlit-compatible format
+def transform_message(message):
+    if isinstance(message, ChatCompletionMessage) or isinstance(message, ChatCompletionMessageToolCall):
+        return {'role': message.role, 'content': message.content}
+    return message
+
+# Transform and display messages
 for message in st.session_state.messages:
-    with st.chat_message(message["role"]):
-        st.markdown(message["content"])
+    transformed_message = transform_message(message)
+    with st.chat_message(transformed_message["role"]):
+        st.markdown(transformed_message["content"])
 
 if prompt := st.chat_input("What is up?"):
     # Call your function to handle the new user message
     st.session_state.messages = handle_new_user_message(st.session_state.messages, prompt)
 
-    # Display the new messages in the Streamlit interface
+    # Transform and display the new messages
     for message in st.session_state.messages[-2:]:  # Display the last two messages (user and assistant)
-        with st.chat_message(message["role"]):
-            st.markdown(message["content"])
+        transformed_message = transform_message(message)
+        with st.chat_message(transformed_message["role"]):
+            st.markdown(transformed_message["content"])
