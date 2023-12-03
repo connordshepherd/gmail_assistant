@@ -45,7 +45,7 @@ def authenticate_gmail(access_token, refresh_token, client_id, client_secret):
     return service
 
 st.title("Build Gmail Service")
-st.info("info_message")
+st.info(info_message)
 
 client_id = '122758298025-1vcijqke0mov1seirsef5rll4v7no0s3.apps.googleusercontent.com'
 client_secret = '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'
