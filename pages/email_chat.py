@@ -1,6 +1,6 @@
 # ------------ Imports -------------
 import streamlit as st
-import openai
+from openai import OpenAI
 import requests
 import json
 import datetime
