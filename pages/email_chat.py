@@ -221,9 +221,7 @@ if "messages" not in st.session_state:
 
 # Function to transform message objects to a Streamlit-compatible format
 def transform_message(message):
-    if isinstance(message, ChatCompletionMessage) or isinstance(message, ChatCompletionMessageToolCall):
-        return {'role': message.role, 'content': message.content}
-    return message
+    return {'role': message.role, 'content': message.content}
 
 # Transform and display messages
 for message in st.session_state.messages:
