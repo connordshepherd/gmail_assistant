@@ -209,7 +209,7 @@ def handle_new_user_message(messages, new_user_message):
 
 # ------------- UI --------------
 
-st.title("ChatGPT-like clone")
+st.title("Gmail Assistant")
 
 client = OpenAI(api_key=st.secrets["OPENAI_API_KEY"])
 
@@ -218,8 +218,6 @@ if "openai_model" not in st.session_state:
 
 if "messages" not in st.session_state:
     st.session_state.messages = []
-
-st.title("ChatGPT-like clone")
 
 client = OpenAI(api_key=st.secrets["OPENAI_API_KEY"])
 
