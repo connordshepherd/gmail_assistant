@@ -166,9 +166,7 @@ def execute_function_call(tool_call):
 
     return results
 
-def handle_new_user_message(messages, new_user_message):
-    # Append the new user message
-    messages.append({"role": "user", "content": new_user_message})
+def handle_new_user_message(messages):
 
     # Generate a response from the assistant
     new_response = openai.chat.completions.create(
@@ -232,11 +230,11 @@ if prompt := st.chat_input("What is up?"):
     st.session_state.messages.append({"role": "user", "content": prompt})
 
     # Call your handle_new_user_message function to process the input
-    st.session_state.messages = handle_new_user_message(
-        st.session_state.messages, prompt
-    )
+    updated_messages = handle_new_user_message(st.session_state.messages)
 
-    # Display the latest message (assistant's response)
-    latest_message = st.session_state.messages[-1]
-    with st.chat_message(latest_message["role"]):
-        st.markdown(latest_message["content"])
+    st.session_state.messages = updated_messages
+
+    # Display the new messages (both user and assistant)
+    for message in updated_messages[-2:]:  # Display the last two messages (user and assistant)
+        with st.chat_message(message["role"]):
+            st.markdown(message["content"])
