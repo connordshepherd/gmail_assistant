@@ -48,9 +48,9 @@ st.title("Build Gmail Service")
 st.info(info_message)
 
 client_id = '122758298025-1vcijqke0mov1seirsef5rll4v7no0s3.apps.googleusercontent.com'
-client_secret = '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'
-access_token = 'ya29.a0AfB_byDBnbF08281Wi58_yHM5QcvrCSueGF8zF27TS-H9GllFTZhjDna6nhdWT4_v02P5N6g9DymK4y-whwyzt-EOa7QdokNSZWYaThEwvWnIUvwVg1oUMLKWxiMl7nFf0Fdt2oUi8cAKsNuggpv_JBSnNz0eu4w1AJzaCgYKAZYSARESFQHGX2MigUB4VhwQ6mPDwzjnO3Ngjw0171'
-refresh_token = '1//04c9xtGz7JgL4CgYIARAAGAQSNgF-L9IrEe5oWoEPezKm5W72Z3fYoXMUs7t4ccIaJIRrJEXj6IwCgPTWdpPzkjx1su5o8FoT4Q'
+client_secret = 'xyz'
+access_token = 'xyz'
+refresh_token = 'xyz'
 
 input_client_id = st.text_input(label="Client ID", value=client_id)
 input_client_secret = st.text_input(label="Client Secret", value=client_secret)
