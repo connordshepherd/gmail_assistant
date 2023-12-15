@@ -244,7 +244,12 @@ client = OpenAI(api_key=st.secrets["OPENAI_API_KEY"])
 # Display existing messages
 for message in st.session_state.messages:
     with st.chat_message(message["role"]):
-        st.markdown(message["content"])
+        # Check if the 'content' key is in the message
+        if "content" in message:
+            st.markdown(message["content"])
+        # If 'content' is not present, display 'tool_calls' instead
+        elif "tool_calls" in message:
+            st.markdown(str(message["tool_calls"]))
 
 # User input
 if prompt := st.chat_input("What is up?"):
