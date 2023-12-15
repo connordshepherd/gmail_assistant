@@ -166,7 +166,7 @@ def execute_function_call(tool_call):
 
     return results
 
-def handle_new_user_message(messages):
+def handle_message_array(messages):
 
     # Generate a response from the assistant
     new_response = openai.chat.completions.create(
@@ -177,20 +177,38 @@ def handle_new_user_message(messages):
 
     # Extract the assistant message object
     assistant_message = new_response.choices[0].message
-    assistant_message.content = str(assistant_message.tool_calls[0].function)
-    messages.append(assistant_message)
 
     # Check and execute tool calls if present
     if assistant_message.tool_calls:
+
+      # Append the Tool Calls to a new assistant message
+      tool_call = assistant_message.tool_calls[0]
+
+      # Create a new dictionary for the assistant's message in the desired format
+      formatted_assistant_message = {
+          'role': 'assistant',
+          'tool_calls': [{
+              'id': tool_call.id,
+              'function': {
+                  'arguments': tool_call.function.arguments,
+                  'name': tool_call.function.name
+              },
+              'type': tool_call.type
+          }]
+      }
+
+      # Append the newly formatted message to the messages list
+      messages.append(formatted_assistant_message)
+
       for tool_call in assistant_message.tool_calls:
           # Assuming execute_function_call is a function you've defined to execute the tool call
           results = execute_function_call(tool_call)
           str_results = str(results)
           # Append the tool call message
           messages.append({
-              "role": "tool", 
-              "tool_call_id": tool_call.id, 
-              "name": tool_call.function.name, 
+              "role": "tool",
+              "tool_call_id": tool_call.id,
+              "name": tool_call.function.name,
               "content": str_results
           })
 
@@ -201,6 +219,10 @@ def handle_new_user_message(messages):
               tools=tools
           )
           assistant_message = human_readable_response.choices[0].message
+          messages.append({"role": "assistant", "content": assistant_message.content})
+
+    else:
+          assistant_message = new_response.choices[0].message
           messages.append({"role": "assistant", "content": assistant_message.content})
 
     return messages
@@ -230,7 +252,7 @@ if prompt := st.chat_input("What is up?"):
     st.session_state.messages.append({"role": "user", "content": prompt})
 
     # Call your handle_new_user_message function to process the input
-    updated_messages = handle_new_user_message(st.session_state.messages)
+    updated_messages = handle_message_array(st.session_state.messages)
 
     st.session_state.messages = updated_messages
 
