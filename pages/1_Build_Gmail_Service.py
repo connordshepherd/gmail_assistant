@@ -55,7 +55,7 @@ refresh_token = 'xyz'
 input_client_id = st.text_input(label="Client ID", value=client_id)
 input_client_secret = st.text_input(label="Client Secret", value=client_secret)
 input_access_token = st.text_input(label="Access Token", value=access_token)
-input_refresh_token = st.text_input(label="Access Token", value=refresh_token)
+input_refresh_token = st.text_input(label="Refresh Token", value=refresh_token)
 
 if st.button("Build Service"):
   service = authenticate_gmail(input_access_token, input_refresh_token, input_client_id, input_client_secret)
